@@ -1,7 +1,7 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The first function is used mainly to get the matrix, which in reality
+## is used to set and get the value of matrix and
+## to then set and get the inverse of the matrix
 
-## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
         inver <- NULL
@@ -10,21 +10,25 @@ makeCacheMatrix <- function(x = matrix()) {
                 inver <<- NULL
         }
         get <- function(){x}
-        setInv <- function(inverse) {inver <<- inverse}
+        setInv <- function(inverse) {inver <<- solve(x)}
         getInv <- function() {inver}
-        list(set = set,
+        list(set = setMat,
              get = get,
              setInv = setInv,
              getInv = getInv)
 }
 
 
-## Write a short comment describing this function
+## The second function is basically used to Solve the inverse of the
+## matrix but as we have addressed that computing the inverse of the 
+## matrix is heavy on resources thus this function first checks if the
+## inverse has already been calculated or not, if yes then it returns
+## the cached value else it solves the matrix and returns new inverse
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         inver <- x$getInv()
-        if(is.null(inver)){
+        if(!is.null(inver)){
                 message("getting cached matrix")
                 return(inver)
         }
